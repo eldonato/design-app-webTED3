@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class EntityNotFoundException extends RuntimeException{
 
-    private final String msg;
+    private final String message;
 
-    public EntityNotFoundException(String msg){
-        this.msg = msg;
+    public EntityNotFoundException(String message){
+        this.message = message;
     }
 }

@@ -1,11 +1,14 @@
 package com.example.designappwebted3.exception;
 
+import lombok.Getter;
+
+@Getter
 public class MissingArgumentsException extends RuntimeException{
 
-    private final String msg;
+    private final String message;
 
-    public MissingArgumentsException(String msg){
-        this.msg = msg;
+    public MissingArgumentsException(String message){
+        this.message = message;
     }
 
 }

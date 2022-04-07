@@ -45,13 +45,8 @@ public class HeroiController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        try{
             this.service.deletarHeroi(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
     }
 
     @PutMapping(value = "{id}")

@@ -25,7 +25,7 @@ public class HeroiService {
     public void cadastrarHeroi(HeroiDTO heroiDTO){
 
         if(heroiDTO.getNomeHeroi().equals("") || heroiDTO.getLocal().equals("")){
-            throw new MissingArgumentsException("O herói precisa de um nome heróico e um local de atuação.");
+            throw new MissingArgumentsException("O nome do herói ou o local não podem estar vazios.");
 
         }
         this.heroiRepository.save( (Heroi)
@@ -40,22 +40,22 @@ public class HeroiService {
 
     public HeroiView listarPorId(Long id){
         var entity = this.heroiRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Entidade não encontrada."));
+                .orElseThrow(() -> new EntityNotFoundException("Entidade com id "+id+" não foi encontrada."));
         return (HeroiView) convertUtils.convertToObject(entity, HeroiView.class);
     }
 
     public void deletarHeroi(Long id){
-        try{
+        if(this.heroiRepository.existsById(id)) {
             this.heroiRepository.deleteById(id);
-        }catch (Exception e){
-            throw new EntityNotFoundException("Entidade não encontrada.");
-        }
+        }else
+            throw new EntityNotFoundException("Entidade com id "+id+" não foi encontrada.");
+
     }
 
     public void atualizar(Long id, HeroiDTO heroiRequest){
 
         var entity = this.heroiRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Entidade não encontrada."));
+                .orElseThrow(() -> new EntityNotFoundException("Entidade com id "+id+" não foi encontrada."));
 
         var entityUpdated = (Heroi)
                 convertUtils.convertToObject(heroiRequest, entity.getClass());
